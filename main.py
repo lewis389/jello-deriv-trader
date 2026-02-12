@@ -102,3 +102,16 @@ class JelloDerivTrader:
                 deriv_type=DerivType.CONVEXITY_VANILLA,
                 notional_per_unit=Decimal("21000.00"),
                 max_leverage=5,
+                decay_coef=CONVEXITY_DECAY_RATE,
+            ),
+            "KS4-N1": InstrumentSpec(
+                ticker="KS4-N1",
+                deriv_type=DerivType.KELVIN_SPREAD,
+                notional_per_unit=Decimal("6700.33"),
+                max_leverage=10,
+                decay_coef=Decimal("0.00091"),
+            ),
+        }
+
+    def _next_id(self, prefix: str) -> bytes:
+        self._counter += 1
