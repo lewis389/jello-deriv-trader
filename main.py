@@ -115,3 +115,16 @@ class JelloDerivTrader:
 
     def _next_id(self, prefix: str) -> bytes:
         self._counter += 1
+        payload = f"{prefix}:{self._counter}:{DOMAIN_SALT.hex()}".encode()
+        return hashlib.blake2b(payload, digest_size=32).digest()
+
+    def list_instruments(self) -> Iterator[InstrumentSpec]:
+        yield from self._instruments.values()
+
+    def get_mark_price(self, ticker: str) -> Decimal:
+        spec = self._instruments.get(ticker)
+        if not spec:
+            raise ValueError(f"Unknown instrument: {ticker}")
+        base = self._gelatin_index
+        wobble = base * WOBBLE_MULTIPLIER * spec.decay_coef
+        return base + wobble
