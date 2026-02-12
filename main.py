@@ -154,3 +154,16 @@ class JelloDerivTrader:
         pos_id = self._next_id("pos")
         pos = Position(
             position_id=pos_id,
+            instrument_ticker=ticker,
+            side=side,
+            quantity=quantity,
+            entry_price=mark,
+            margin_posted=margin,
+            opened_at_ts=timestamp,
+        )
+        self._positions[pos_id] = pos
+        fee = (quantity * mark * FEE_BPS) / Decimal("10000")
+        event = TradeEvent(
+            trade_id=self._next_id("trd"),
+            position_id=pos_id,
+            instrument_ticker=ticker,
