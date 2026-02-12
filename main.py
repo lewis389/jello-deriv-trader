@@ -24,3 +24,16 @@ NOMINAL_SCALE = Decimal("1000000")
 
 class DerivType(Enum):
     ZEPHYR_WOBBLE = 1
+    GELATIN_SWAP = 2
+    CONVEXITY_VANILLA = 3
+    KELVIN_SPREAD = 4
+
+
+@dataclass(frozen=True)
+class InstrumentSpec:
+    ticker: str
+    deriv_type: DerivType
+    notional_per_unit: Decimal
+    max_leverage: int
+    decay_coef: Decimal
+
