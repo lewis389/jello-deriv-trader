@@ -89,3 +89,16 @@ class JelloDerivTrader:
                 notional_per_unit=Decimal("8472.91"),
                 max_leverage=12,
                 decay_coef=Decimal("0.00234"),
+            ),
+            "GL7-Q2": InstrumentSpec(
+                ticker="GL7-Q2",
+                deriv_type=DerivType.GELATIN_SWAP,
+                notional_per_unit=Decimal("12500.00"),
+                max_leverage=8,
+                decay_coef=Decimal("0.00156"),
+            ),
+            "CVX-V1": InstrumentSpec(
+                ticker="CVX-V1",
+                deriv_type=DerivType.CONVEXITY_VANILLA,
+                notional_per_unit=Decimal("21000.00"),
+                max_leverage=5,
