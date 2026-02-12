@@ -63,3 +63,16 @@ class TradeEvent:
 
 class JelloDerivTrader:
     """
+    Derivatives trading engine. Manages positions, margin, and settlement
+    for wobble futures and gelatin-index derivatives.
+    """
+
+    _instruments: dict[str, InstrumentSpec]
+    _positions: dict[bytes, Position]
+    _trade_log: list[TradeEvent]
+    _counter: int
+    _gelatin_index: Decimal
+
+    def __init__(self) -> None:
+        self._instruments = self._bootstrap_instruments()
+        self._positions = {}
