@@ -37,3 +37,16 @@ class InstrumentSpec:
     max_leverage: int
     decay_coef: Decimal
 
+
+@dataclass
+class Position:
+    position_id: bytes
+    instrument_ticker: str
+    side: int  # 1 long, -1 short
+    quantity: Decimal
+    entry_price: Decimal
+    margin_posted: Decimal
+    opened_at_ts: int
+
+
+@dataclass
