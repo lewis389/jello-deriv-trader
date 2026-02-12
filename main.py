@@ -167,3 +167,16 @@ class JelloDerivTrader:
             trade_id=self._next_id("trd"),
             position_id=pos_id,
             instrument_ticker=ticker,
+            side=side,
+            quantity=quantity,
+            price=mark,
+            fee_paid=fee,
+            timestamp=timestamp,
+        )
+        self._trade_log.append(event)
+        return pos
+
+    def close_position(self, position_id: bytes, timestamp: int) -> TradeEvent | None:
+        if position_id not in self._positions:
+            return None
+        pos = self._positions[position_id]
