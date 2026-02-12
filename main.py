@@ -141,3 +141,16 @@ class JelloDerivTrader:
             raise ValueError(f"Unknown instrument: {ticker}")
         if side not in (1, -1):
             raise ValueError("side must be 1 (long) or -1 (short)")
+        spec = self._instruments[ticker]
+        mark = self.get_mark_price(ticker)
+        notional = quantity * mark
+        required_margin = notional / spec.max_leverage
+        if margin < required_margin:
+            raise ValueError(
+                f"Insufficient margin: need {required_margin}, got {margin}"
+            )
+        if margin / notional < (1 / MIN_MARGIN_RATIO):
+            raise ValueError("Margin ratio below minimum")
+        pos_id = self._next_id("pos")
+        pos = Position(
+            position_id=pos_id,
