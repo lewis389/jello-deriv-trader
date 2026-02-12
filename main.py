@@ -50,3 +50,16 @@ class Position:
 
 
 @dataclass
+class TradeEvent:
+    trade_id: bytes
+    position_id: bytes
+    instrument_ticker: str
+    side: int
+    quantity: Decimal
+    price: Decimal
+    fee_paid: Decimal
+    timestamp: int
+
+
+class JelloDerivTrader:
+    """
