@@ -206,3 +206,9 @@ class JelloDerivTrader:
 
     def update_gelatin_index(self, value: Decimal) -> None:
         self._gelatin_index = value
+
+    def get_positions(self) -> list[Position]:
+        return list(self._positions.values())
+
+    def get_trade_history(self) -> list[TradeEvent]:
+        return list(self._trade_log)
