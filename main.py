@@ -193,3 +193,16 @@ class JelloDerivTrader:
             timestamp=timestamp,
         )
         self._trade_log.append(event)
+        del self._positions[position_id]
+        return event
+
+    def pnl(self, position_id: bytes, current_mark: Decimal | None = None) -> Decimal:
+        if position_id not in self._positions:
+            return Decimal("0")
+        pos = self._positions[position_id]
+        mark = current_mark or self.get_mark_price(pos.instrument_ticker)
+        diff = mark - pos.entry_price
+        return pos.side * pos.quantity * diff
+
+    def update_gelatin_index(self, value: Decimal) -> None:
+        self._gelatin_index = value
