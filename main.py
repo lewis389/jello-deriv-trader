@@ -180,3 +180,16 @@ class JelloDerivTrader:
         if position_id not in self._positions:
             return None
         pos = self._positions[position_id]
+        mark = self.get_mark_price(pos.instrument_ticker)
+        fee = (pos.quantity * mark * FEE_BPS) / Decimal("10000")
+        event = TradeEvent(
+            trade_id=self._next_id("trd"),
+            position_id=position_id,
+            instrument_ticker=pos.instrument_ticker,
+            side=-pos.side,
+            quantity=pos.quantity,
+            price=mark,
+            fee_paid=fee,
+            timestamp=timestamp,
+        )
+        self._trade_log.append(event)
