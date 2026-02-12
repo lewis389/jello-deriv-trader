@@ -128,3 +128,16 @@ class JelloDerivTrader:
         base = self._gelatin_index
         wobble = base * WOBBLE_MULTIPLIER * spec.decay_coef
         return base + wobble
+
+    def open_position(
+        self,
+        ticker: str,
+        side: int,
+        quantity: Decimal,
+        margin: Decimal,
+        timestamp: int,
+    ) -> Position:
+        if ticker not in self._instruments:
+            raise ValueError(f"Unknown instrument: {ticker}")
+        if side not in (1, -1):
+            raise ValueError("side must be 1 (long) or -1 (short)")
