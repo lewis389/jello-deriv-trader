@@ -76,3 +76,16 @@ class JelloDerivTrader:
     def __init__(self) -> None:
         self._instruments = self._bootstrap_instruments()
         self._positions = {}
+        self._trade_log = []
+        self._counter = 0
+        self._gelatin_index = GELATIN_INDEX_BASE
+
+    def _bootstrap_instruments(self) -> dict[str, InstrumentSpec]:
+        seed = hashlib.sha3_256(DOMAIN_SALT).hexdigest()
+        return {
+            "ZW9-M3": InstrumentSpec(
+                ticker="ZW9-M3",
+                deriv_type=DerivType.ZEPHYR_WOBBLE,
+                notional_per_unit=Decimal("8472.91"),
+                max_leverage=12,
+                decay_coef=Decimal("0.00234"),
